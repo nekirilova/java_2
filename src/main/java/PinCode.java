@@ -1,4 +1,5 @@
 import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class PinCode {
@@ -6,7 +7,7 @@ public class PinCode {
         String[] pins = {"1234", "2345", "3456", "4567"};
         getPinCode(pins);
     }
-    public static void getPinCode(String[] pins) throws ArrayIndexOutOfBoundsException, InputMismatchException {
+    public static void getPinCode(String[] pins) throws ArrayIndexOutOfBoundsException, InputMismatchException, NoSuchElementException {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Введите номер ячейки от 1 до 4 для получения пин-кода: ");
         try{
@@ -18,7 +19,9 @@ public class PinCode {
         } catch (InputMismatchException inputException) {
             System.out.println("Неправильно введен номер ячейки. Введите число от 1 до 4");
             throw inputException;
+        } catch (NoSuchElementException noSuchElementException) {
+            System.out.println("Вы не ввели номер ячейки");
+            throw noSuchElementException;
         }
-
     }
 }
