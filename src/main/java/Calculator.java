@@ -1,42 +1,34 @@
 import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Calculator {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
+        final String CALCULATOR_START_TIP = "Этот калькулятор делит только целые числа. Введите делимое: ";
+        final String CALCULATOR_CONTINUE_TIP = "Введите делитель: ";
+
         Scanner scanner = new Scanner(System.in);
-            int dividend = readDividend(scanner);
-            int divisor = readDivisor(scanner);
-            countResult(dividend, divisor);
+        int dividend = readInt(scanner, CALCULATOR_START_TIP);
+        int divisor = readInt(scanner, CALCULATOR_CONTINUE_TIP);
+        countResult(scanner, dividend, divisor);
     }
 
-    public static int readDividend(Scanner scanner) throws InputMismatchException {
-        System.out.println("Этот калькулятор делит только целые числа. Введите делимое: ");
-        int dividend;
+    public static int readInt(Scanner scanner, String inputTip) {
+        System.out.println(inputTip);
+        int input;
         try {
-            dividend = scanner.nextInt();
+            input = scanner.nextInt();
         } catch (InputMismatchException notIntException) {
-            System.out.println("Вы ввели не целое число. Попробуйте число без точки:)");
+            System.out.println("Кажется, вы ввели не целое число");
             throw notIntException;
+        } catch (NoSuchElementException noSuchElementException) {
+            System.out.println("Вы так ничего и не ввели");
+            throw noSuchElementException;
         }
-        return dividend;
+        return input;
     }
 
-    public static int readDivisor(Scanner scanner) throws InputMismatchException {
-        int divisor;
-        System.out.println("Введите делитель: ");
-        try {
-            divisor = scanner.nextInt();
-            if (divisor == 0) {
-                System.out.println("Зря вы ввели ноль, сейчас все сломается! ");
-            }
-        } catch (InputMismatchException notIntException) {
-            System.out.println("Вы ввели не целое число. Попробуйте число без точки:)");
-            throw notIntException;
-        }
-        return divisor;
-    }
-
-    public static void countResult(int dividend, int divisor) throws Exception {
+    public static void countResult(Scanner scanner, int dividend, int divisor) {
         try {
             int result = dividend / divisor;
             System.out.println("Максимально близкий целочисленный ответ: " + result);
@@ -46,6 +38,10 @@ public class Calculator {
         } catch (Exception e) {
             System.out.println("Что-то пошло не по плану... Калькулятор отключается");
             throw e;
+        } finally {
+            if (scanner != null) {
+                scanner.close();
+            }
         }
     }
 }

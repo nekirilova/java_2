@@ -6,17 +6,17 @@ public class PinCode {
         String[] pins = {"1234", "2345", "3456", "4567"};
         getPinCode(pins);
     }
-    public static void getPinCode(String[] pins) throws ArrayIndexOutOfBoundsException {
+    public static void getPinCode(String[] pins) throws ArrayIndexOutOfBoundsException, InputMismatchException {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Введите номер ячейки от 0 до 3 для получения пин-кода: ");
+        System.out.println("Введите номер ячейки от 1 до 4 для получения пин-кода: ");
         try{
             int index = scanner.nextInt();
-            System.out.println(String.format("Пин-код из ячейки %d: %s", index, pins[index]));
+            System.out.println(String.format("Пин-код из ячейки %d: %s", index, pins[index-1]));
         } catch (ArrayIndexOutOfBoundsException indexException) {
-            System.out.println("Номер ячейки выходит за пределы интервала от 0 до 3");
+            System.out.println("Номер ячейки выходит за пределы интервала от 1 до 4");
             throw indexException;
         } catch (InputMismatchException inputException) {
-            System.out.println("Неправильно введен номер ячейки. Введите число от 0 до 3");
+            System.out.println("Неправильно введен номер ячейки. Введите число от 1 до 4");
             throw inputException;
         }
 
